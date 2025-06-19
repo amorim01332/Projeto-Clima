@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clima Agora</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="clouds">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+      <div class="cloud cloud-4"></div>
+      <div class="cloud cloud-5"></div>
+    </div>
+
+    <canvas id="rain-canvas"></canvas>
+
+    <div class="container">
+      <h1>🌤️ Clima Agora</h1>
+
+      <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Digite uma cidade" />
+        <button onclick="getWeather()">Buscar</button>
+        <button onclick="getWeatherByLocation()">📍 Usar Localização</button>
+      </div>
+
+      <div id="loader" class="loader" style="display: none"></div>
+
+      <div id="weatherResult" class="result-box"></div>
+
+      <button onclick="toggleDarkMode()">🌙 Modo Escuro</button>
+    </div>
+
+    <footer>
+      <p>Desenvolvido por <a href="">Pedro Henrique</a> | Meu LinkedIn</a></p>
+    </footer>
+    <!-- Importando a biblioteca Axios -->
+// Importando o script do JavaScript
+    <script src="script.js"></script>
+  </body>
+</html>
