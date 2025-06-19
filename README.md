@@ -11,13 +11,6 @@ Este é um projeto de um **aplicativo de clima em tempo real**, que utiliza a AP
 
 👉 [Coloque aqui o link do GitHub Pages ou Vercel quando publicar]
 
-## 🖼️ **Preview**
-
-| ☀️ Clima Claro | ☁️ Clima Nublado |
-🌧️ Clima Chuvoso |
-| ----------------------------------------- | ------------------------------------------- | ----------------------------------------- |
-| ![Claro](https://via.placeholder.com/200) | ![Nublado](https://via.placeholder.com/200) | ![Chuva](https://via.placeholder.com/200) |
-
 ## 🚀 **Funcionalidades**
 
 - Busca por cidade
