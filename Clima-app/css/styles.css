@@ -1,4 +1,4 @@
-/* Container de nuvens */
+/* Nuvens corrigidas (substitua todo o bloco .clouds e .cloud no seu CSS) */
 .clouds {
   position: fixed;
   width: 100%;
@@ -8,15 +8,15 @@
   z-index: 0;
 }
 
-/* Estilo das nuvens */
 .cloud {
   background: #fff;
   border-radius: 50%;
   position: absolute;
-  opacity: 0.7;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
 }
 
-/* Formato das nuvens */
+/* Partículas das nuvens */
 .cloud::before,
 .cloud::after {
   content: "";
@@ -25,81 +25,75 @@
   border-radius: 50%;
 }
 
-/* Configurações de tamanho e posição */
 .cloud::before {
   width: 60%;
   height: 60%;
-  left: -30%;
-  top: 0;
+  left: -20%;
+  top: -10%;
 }
 
 .cloud::after {
-  width: 60%;
-  height: 60%;
-  right: -30%;
-  top: 0;
+  width: 50%;
+  height: 50%;
+  right: -20%;
+  bottom: -10%;
 }
 
-/* Nuvens indo para a direita */
+/* Tamanhos e posições individuais */
 .cloud-1 {
   width: 120px;
-  height: 60px;
-  top: 20%;
-  left: -150px;
+  height: 70px;
+  top: 15%;
   animation: moveCloudRight 60s linear infinite;
 }
 
 .cloud-2 {
   width: 180px;
-  height: 80px;
-  top: 40%;
-  left: -200px;
-  animation: moveCloudRight 90s linear infinite;
+  height: 90px;
+  top: 30%;
+  animation: moveCloudRight 85s linear infinite;
+  animation-delay: 10s;
 }
 
 .cloud-3 {
   width: 150px;
-  height: 70px;
-  top: 60%;
-  left: -180px;
-  animation: moveCloudRight 75s linear infinite;
+  height: 80px;
+  top: 55%;
+  animation: moveCloudRight 70s linear infinite;
+  animation-delay: 5s;
 }
 
-/* Nuvens indo para a esquerda */
 .cloud-4 {
-  width: 130px;
-  height: 65px;
+  width: 140px;
+  height: 75px;
   top: 25%;
-  right: -150px;
-  transform: scaleX(-1);
-  animation: moveCloudLeft 70s linear infinite;
+  animation: moveCloudLeft 75s linear infinite;
+  animation-delay: 7s;
 }
 
 .cloud-5 {
   width: 200px;
-  height: 90px;
-  top: 50%;
-  right: -200px;
-  transform: scaleX(-1);
+  height: 100px;
+  top: 65%;
   animation: moveCloudLeft 95s linear infinite;
 }
 
-/* Animações de movimento */
+/* Animações padronizadas */
 @keyframes moveCloudRight {
   0% {
-    transform: translateX(0);
+    transform: translateX(-200px);
   }
   100% {
-    transform: translateX(130vw);
+    transform: translateX(calc(100vw + 200px));
   }
 }
 
 @keyframes moveCloudLeft {
   0% {
-    transform: translateX(0);
+    transform: translateX(calc(100vw + 200px));
   }
   100% {
-    transform: translateX(-130vw);
+    transform: translateX(-200px);
   }
 }
 
@@ -386,4 +380,138 @@ body.dark input::placeholder {
   .result-box p {
     font-size: 0.9rem;
   }
+}
+
+/* Forecast box styles */
+.forecast-container {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: none;
+  z-index: 10;
+}
+
+.forecast-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.forecast-header h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.close-forecast {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.forecast-day {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.forecast-day:last-child {
+  border-bottom: none;
+}
+
+.day-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 60%;
+}
+
+.forecast-day img {
+  width: 40px;
+  height: 40px;
+}
+
+.day-temp {
+  font-weight: bold;
+  min-width: 80px;
+  text-align: right;
+}
+
+.toggle-forecast {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 11;
+}
+.forecast-day img {
+  width: 40px;
+  height: 40px;
+}
+.forecast-day {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.forecast-city {
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.forecast-day {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.2s;
+}
+
+.forecast-day:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.day-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 65%;
+}
+
+.day-date {
+  font-weight: bold;
+  min-width: 70px;
 }
