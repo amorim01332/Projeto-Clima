@@ -1,4 +1,4 @@
-const apiKey = "a09bce1f0a99e884fb1199fa83607e14";
+const apiKey = "0870e67f14013eb25ed390c0b1c4985e";
 
 const canvas = document.getElementById("rain-canvas");
 const ctx = canvas.getContext("2d");
@@ -139,3 +139,97 @@ function changeBackground(weatherMain) {
     document.getElementById("rain-canvas").style.display = "block";
   }
 }
+
+// ---- Eventos de Botões ----
+document.getElementById("getWeather").addEventListener("click", getWeather);
+document
+  .getElementById("getLocationWeather")
+  .addEventListener("click", getWeatherByLocation);
+document
+  .getElementById("toggleDarkMode")
+  .addEventListener("click", toggleDarkMode);
+
+document
+  .getElementById("toggleForecast")
+  .addEventListener("click", toggleForecast);
+
+// Forecast functionality
+function toggleForecast() {
+  const forecastBox = document.getElementById("forecastBox");
+  forecastBox.style.display =
+    forecastBox.style.display === "block" ? "none" : "block";
+}
+
+async function get5DayForecast(city) {
+  if (!city) return;
+
+  showLoader(true);
+  try {
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&lang=pt_br&units=metric`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (response.ok) {
+      displayForecast(data);
+    }
+  } catch (error) {
+    console.error("Erro na previsão:", error);
+  }
+  showLoader(false);
+}
+
+function displayForecast(data) {
+  const forecastContent = document.getElementById("forecastContent");
+  forecastContent.innerHTML = "";
+
+  // Group by day
+  const dailyForecasts = {};
+  data.list.forEach((item) => {
+    const date = new Date(item.dt * 1000);
+    const dayKey = date.toLocaleDateString("pt-BR", { weekday: "long" });
+
+    if (!dailyForecasts[dayKey]) {
+      dailyForecasts[dayKey] = {
+        date: date,
+        temps: [],
+        weather: item.weather[0],
+        icon: item.weather[0].icon,
+      };
+    }
+
+    dailyForecasts[dayKey].temps.push(item.main.temp);
+  });
+
+  // Get next 5 days
+  const forecastDays = Object.values(dailyForecasts).slice(0, 5);
+
+  forecastDays.forEach((day) => {
+    const minTemp = Math.min(...day.temps).toFixed(1);
+    const maxTemp = Math.max(...day.temps).toFixed(1);
+    const dayName = day.date.toLocaleDateString("pt-BR", { weekday: "short" });
+
+    const dayElement = document.createElement("div");
+    dayElement.className = "forecast-day";
+    dayElement.innerHTML = `
+                    <div class="day-info">
+                        <span>${dayName}</span>
+                        <img src="https://openweathermap.org/img/wn/${day.icon}@2x.png" alt="${day.weather.description}">
+                    </div>
+                    <div class="day-temp">
+                        ${maxTemp}° / ${minTemp}°
+                    </div>
+                `;
+
+    forecastContent.appendChild(dayElement);
+  });
+
+  document.getElementById("forecastBox").style.display = "block";
+}
+// Event listener for forecast button
+document.getElementById("getForecast").addEventListener("click", () => {
+  const city = document.getElementById("cityInput").value;
+  get5DayForecast(city);
+});
+// Initial call to get weather by default location
+getWeatherByLocation();
+// Initial call to get 5-day forecast for default location
